@@ -7,36 +7,44 @@ Stabiliamo se la somma dei due numeri è pari o dispari (usando una funzione)
 Dichiariamo chi ha vinto.
 */
 
+const resultElement = document.getElementById('result');
 
-// Chiedo input al utente
-let userValues = prompt('Scegli pari o dispari').trim();
-console.log(userValues);
 
-let userNumber = prompt('Scegli un numero da 1 a 5')
-console.log(userNumber);
+// 1 Chiediamo input al utente
 
-// Generiamo numero rando
-const cpuNumber = cpuRandom(1, 5);
-console.log(cpuNumber);
+const userChoice = prompt('Scrivi pari o dispari');
+const userNumber = parseInt(prompt('Inserisci un numero da 1 a 5'));
 
-// Funzione per numero random
-function cpuRandom(min, max){
-    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+// 2 Creo funzione per generare numero random
 
-    return randomNumber;
-}
+function randomNumber(min, max){
+    const random = parseInt(Math.floor(Math.random() * (max - min + 1)  + min));
+    return random
+};
 
-// Sommo i due numeri
+const cpuNumber = randomNumber(1, 5)
+
+// 3 Sommiamo i due numeri
+
 const sum = userNumber + cpuNumber;
 
-// Stabiliamo se la somma è pari o dispari
-function pari(number){
+// 4 Stabiliamo se la somma è pari o dispari
+
+function isEven(number){
     return number % 2 === 0 ? true : false;
 }
 
-// Stabiliamo vincitore
-if (pari(sum) && userValues === 'pari' || !pari(sum) && userValues === 'dispari' ){
-    console.log('Hai vinto');
-} else {
-    console.log('Hai perso')
+// 5 Verifico il vincitore
+let message;
+
+if (isEven(sum) && userChoice === 'pari' || !isEven(sum) && userChoice === 'dispari'){
+    message = `L'umano ha scelto <strong>${userChoice}</strong>, il numero scelto è <strong>${userNumber}</strong> mentre il numero scelto da computer è <strong>${cpuNumber}</strong>
+    La somma dei due numeri è: <strong>${sum}</strong>.
+    In questo caso hai avuto la meglio sul computer`
+} else{
+    message = `L'umano ha scelto <strong>${userChoice}</strong>, il numero scelto è <strong>${userNumber}</strong> mentre il numero scelto da computer è <strong>${cpuNumber}</strong>
+    La somma dei due numeri è: <strong>${sum}</strong>.
+    Purtroppo il computer ha avuto la meglio e ti ha battuto`
 }
+
+resultElement.innerHTML = message
